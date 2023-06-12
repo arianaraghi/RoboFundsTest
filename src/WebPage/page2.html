@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Analyzer</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <button onclick="location.href='index.html'">Data Oracles</button>
+            <button onclick="location.href='page2.html'">Analyzer</button>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Analyzer</h2>
+            <p>By choosing two different currencies, you can see the analysis of the first one in the second one.</p>
+            <select id="analyze-first">
+                <option value="option1">BTC</option>
+                <option value="option2">ETH</option>
+                <option value="option3">USD</option>
+                <option value="option4">FTM</option>
+                <option value="option5">BNB</option>
+            </select>
+            <select id="analyze-second">
+                <option value="option1">BTC</option>
+                <option value="option2">ETH</option>
+                <option value="option3">USD</option>
+                <option value="option4">FTM</option>
+                <option value="option5">BNB</option>
+            </select>
+            <div class="button-container">
+                <button onclick="marketDataAnalyze()">Analyze</button>
+                <button onclick="openPopup()">Swap</button>
+                <p id="analyze-result"></p>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
