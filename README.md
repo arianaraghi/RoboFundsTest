@@ -35,3 +35,5 @@ I mentioned there are some ways to make the contract more gas-efficient, therfor
 2. Using Mappings instead of Arrays: by design, Mappings are cheaper and faster than Arrays. If possible, we have to use Mappings instead of Arrays.
 3. Avoid changing storage data: changing storage data is very costly. We have to avoid changing them, as much as possible.
 4. Minimizing use of loops: this one is as obvious as "the sky is blue in day light."
+
+In terms of making the contract more gas-efficient, I have already did my best in the second task. So, I don't have any new contracts to upload for the third task.
