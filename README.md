@@ -3,13 +3,13 @@
 
 **Note: Please consider that the project doesn't work. Since the API providers need active accounts to provide the API we need, and the JavaScript code needs deployed contract and is not completed yet.**
 
-This repository is built for test tasks of RoboFunds startup. The task codes can be found in `src` folder based on the number of the task.
+This repository is built for test tasks of RoboFunds startup. The task codes can be found in `src/Contracts` folder based on the number of the task.
 
 **Task 1:** Create a decentralized oracle that provides data to smart contracts on Fantom blockchain. 
 
 In this task I provided a full Oracle for market data, weather, traffic data, and live soccer scores. Also, as I mentioned in this specific contract, I recommend having different contracts for different types of API calls. This is because not only the contract deployment fee is reduced for each of them, it reduces the complexity of working with the contract. Also, if we need to deploy the contracts in different steps of the project, having different contracts help us fulfill this without extra labor. Therefore, I decided to provide different contracts for the different data. The market data contract also helps me to fulfill the second task.
 
-I should mention that I used ChainLink's [Single Word Responce for HTTP GET request]:(https://docs.chain.link/any-api/get-request/examples/single-word-response/). Because ChainLink doesn't support any data other than cryptocurrency market data (and some FX and commodity data), I needed to make direct API calls to some data providers in other fields like the weather data. This is why I used ChainLink as somewhat a middleman for my requests. Also, if we have many data requests like many DeFi platforms such as Aave and Curve, we can design our own Oracle using ChainLink's open source codes to get rid of the LINK fee that we have to give the ChainLink's nodes. 
+I should mention that I used ChainLink's [Single Word Responce for HTTP GET request](https://docs.chain.link/any-api/get-request/examples/single-word-response/). Because ChainLink doesn't support any data other than cryptocurrency market data (and some FX and commodity data), I needed to make direct API calls to some data providers in other fields like the weather data. This is why I used ChainLink as somewhat a middleman for my requests. Also, if we have many data requests like many DeFi platforms such as Aave and Curve, we can design our own Oracle using ChainLink's open source codes to get rid of the LINK fee that we have to give the ChainLink's nodes. 
 
 
 **Task 2:** Create a smart contract that can analyze real-time market data on Fantom blockchain.
@@ -52,3 +52,9 @@ I mentioned there are some ways **to make the contract more gas-efficient**, the
 4. Minimizing use of loops: this one is as obvious as "the sky is blue in daylight."
 
 In terms of making the contract more gas-efficient, I have already done my best in the second task. So, I don't have any new contracts to upload for the third task.
+
+**My Own Task:** Create a simple webpage that can be connected to the contracts.
+
+In this task, I provided a very simple, not pretty webpage in the `src/WebPage` folder. This webpage can connect to depployed contracts, but we have to notice that almost everything is not compelete, and until we connect to deployed contracts, **finding some bugs in both the webpage and the contracts is asured and guaranteed**. :)
+
+
