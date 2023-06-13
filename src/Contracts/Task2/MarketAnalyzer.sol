@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-import "https://github.com/arianaraghi/RoboFundsTest/blob/main/src/Contracts/Task1/MarketDataOracle.sol";
-import "./SwapTokens.sol";
-import "@openzeppelin/contracts/utils/math/Math.sol";
+import "github.com/arianaraghi/RoboFundsTest/blob/main/src/Contracts/Task1/MarketDataOracle.sol";
+import "github.com/arianaraghi/RoboFundsTest/blob/main/src/Contracts/Task2/SwapTokens.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 /**
  * It is said to create a smart contract for analyzing part. I will write the code in Solidity
@@ -14,6 +14,10 @@ import "@openzeppelin/contracts/utils/math/Math.sol";
  */
 
 contract MarketAnalyzer {
+
+    using SafeMath for uint256;
+    MarketDataOracle priceOracle;
+    tokenSwap swapper;
 
     string private baseCurrency;
     string private targetCurrency; 
@@ -36,7 +40,7 @@ contract MarketAnalyzer {
      * Fetching the current price of the pair we have set, using the Oracle we built before.
      */
     function _fetchPrice(string memory _baseCurrency,string memory _targetCurrency) private returns (uint256){
-        return int(requestPriceData( baseCurrency, targetCurrency));
+        return uint(priceOracle.requestPriceData( _baseCurrency, _targetCurrency));
     }
 
     /**
@@ -46,7 +50,7 @@ contract MarketAnalyzer {
      * they can use our other functions to do our analysis. 
      */
 
-    function analyzer() public view returns (string memory){
+    function analyzer() public returns (string memory){
         uint256 price = _fetchPrice(baseCurrency, targetCurrency);
         if(price >= 22000){
             emit Analyzed(targetCurrency, price, "buy");
@@ -71,23 +75,31 @@ contract MarketAnalyzer {
      * in the same directory as this contract. Notice that I didn't write that
      * contract and I just tried to use it here. 
      */
-    function swapToken(uint256 _amount){
+    function swapToken(uint256 _amount) public {
         uint256 targetCurrencyPrice = _fetchPrice(baseCurrency, targetCurrency);
-        uint256 WETHPrice = _fetchPrice(_baseCurrency, "WETH");
+        uint256 WETHPrice = _fetchPrice(baseCurrency, "WETH");
         string memory result = analyzer();
-        amountOutMin = div(mul(targetCurrencyPrice,1000000000000000000),WETHPrice);
-        amountIn = mul(amount, 1000000000000000000);
+        uint256 amountOutMin = targetCurrencyPrice.mul(1000000000000000000).div(WETHPrice);
+        uint256 amountIn = _amount.mul(1000000000000000000);
 
-        if (result == "buy"){
-            swap(WETH, targetCurrencyAddress, amountIn, amountOutMin, msg.sender);
+        if (compare(result, "buy")){
+            swapper.swap(WETH, targetCurrencyAddress, amountIn, amountOutMin, msg.sender);
             emit Swapped("WETH", targetCurrency, amountIn, amountOutMin);
         }
 
-        else if (result == "sell"){
-            swap(targetCurrencyAddress, WETH, amountOutMin, amountIn, msg.sender);
+        else if (compare(result, "sell")){
+            swapper.swap(targetCurrencyAddress, WETH, amountOutMin, amountIn, msg.sender);
             emit Swapped(targetCurrency, "WETH", amountOutMin, amountIn);
         }
 
+    }
+
+
+    function compare(string memory str1, string memory str2) internal pure returns (bool) {
+        if (bytes(str1).length != bytes(str2).length) {
+            return false;
+        }
+        return keccak256(abi.encodePacked(str1)) == keccak256(abi.encodePacked(str2));
     }
 
 
