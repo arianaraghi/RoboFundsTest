@@ -16,8 +16,8 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 contract MarketAnalyzer {
 
     using SafeMath for uint256;
-    MarketDataOracle priceOracle;
-    tokenSwap swapper;
+    MarketDataOracle private priceOracle;
+    tokenSwap private swapper;
 
     string private baseCurrency;
     string private targetCurrency; 
