@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-import "https://github.com/arianaraghi/RoboFundsTest/blob/main/src/Task1/MarketDataOracle.sol";
-import "https://github.com/arianaraghi/RoboFundsTest/blob/main/src/Task2/SwapTokens.sol";
+import "https://github.com/arianaraghi/RoboFundsTest/blob/main/src/Contracts/Task1/MarketDataOracle.sol";
+import "./SwapTokens.sol";
 import "@openzeppelin/contracts/utils/math/Math.sol";
 
 /**
